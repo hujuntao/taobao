@@ -1,0 +1,91 @@
+{include file="Public/header" title="$title"/}
+{include file="Public/menu"/}
+<div class="tpl-content-wrapper">
+
+            <div class="row-content am-cf">
+
+
+                <div class="row">
+
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                <div class="widget-title am-fl">{$cate_title}</div>
+                                <div class="widget-function am-fr">
+                                    <a href="javascript:;" class="am-icon-cog"></a>
+                                </div>
+                            </div>
+                            <div class="widget-body am-fr">
+
+                                <form class="am-form tpl-form-border-form tpl-form-border-br" action="{$ajaxUrl}" method="post">
+
+                                <input type="hidden" name="__token__" value="{$Request.token}"/>
+                                <input type="hidden" name="id" value="{$cate_id}" />
+
+                                    <div class="am-form-group">
+                                        <label for="user-name" class="am-u-sm-3 am-form-label">名称</label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="tpl-form-input" name="cate_name" placeholder="请输入分类名称" value="{$cate_name}">
+                                        </div>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <label for="user-email" class="am-u-sm-3 am-form-label">图标</label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="am-form-field" placeholder="分类图标" name="cate_icon" value="{$cate_icon}">
+                                        </div>
+                                    </div>
+                                    
+                                     <div class="am-form-group">
+                                        <label for="user-email" class="am-u-sm-3 am-form-label">商品类目</label>
+                                        <div class="am-u-sm-9">
+                                            <select multiple data-am-selected="{maxHeight: 400,searchBox: 1}" name="category[]">
+  {volist name="itemcats" id="cate"}
+  <option value="{$cate.cid}" {if isset($cate['selected'])} {eq name="$cate['selected']" value="1"}selected="selected"{/eq} {/if}>{$cate.name}</option>
+  {/volist}
+</select>
+                                        </div>
+                                    </div>
+
+                                   
+
+                                    <div class="am-form-group">
+                                        <div class="am-u-sm-9 am-u-sm-push-3">
+                                            <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+
+            </div>
+        </div>
+{include file="Public/footer"/}
+ <script>
+	$(function(){
+		$('.am-form .am-btn-primary').click(function(e){
+			
+			var _form=$('.am-form'),_this=this;
+			$(_this).button('loading');
+			$.post(_form.attr('action'),_form.serialize(),function(e){
+				if(e.code!=0){
+					$('input[name="__token__"]').val(e.token);
+					alert(e.msg);
+				}else{
+					window.location.href='{$cateUrl}'
+				}
+				$(_this).button('reset');
+			},'json')
+			
+		})
+		
+	})
+	</script>
+
+</body>
+</html>

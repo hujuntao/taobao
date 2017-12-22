@@ -1,0 +1,163 @@
+{include file="Public/header" title="$title"/}
+{include file="Public/menu"/}
+<div class="tpl-content-wrapper">
+  <div class="row-content am-cf">
+    <div class="row">
+      <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+        <div class="widget am-cf">
+          <div class="widget-head am-cf">
+            <div class="widget-title am-fl">{$brand_title}</div>
+            <div class="widget-function am-fr"> <a href="javascript:;" class="am-icon-cog"></a> </div>
+          </div>
+          <div class="widget-body am-fr">
+            <form class="am-form tpl-form-border-form tpl-form-border-br" action="{$checkUrl}" method="post">
+              <input type="hidden" name="__token__" value="{$Request.token}"/>
+              <input type="hidden" name="id" value="{$id}" />
+              <div class="am-form-group">
+                <label for="user-name" class="am-u-sm-3 am-form-label">品牌链接</label>
+                <div class="am-u-sm-9">
+                  <input type="text" class="tpl-form-input" name="brand_activity_url" placeholder="输入爱淘宝品牌折扣频道任意单个品牌地址" value="{$brand_activity_url}" id="brand_activity_url">
+                  <button type="button" class="am-btn am-btn-success" id="getItem">一键采集</button>
+                </div>
+              </div>
+              <div class="am-form-group">
+                <label for="user-email" class="am-u-sm-3 am-form-label">品牌团ID</label>
+                <div class="am-u-sm-9">
+                  <input type="text" class="am-form-field" placeholder="品牌团ID" name="brand_id" value="{$brand_id}" id="brand_id">
+                </div>
+              </div>
+              <div class="am-form-group">
+                <label for="user-email" class="am-u-sm-3 am-form-label">品牌名称</label>
+                <div class="am-u-sm-9">
+                  <input type="text" class="am-form-field" placeholder="请填写品牌名称" name="brand_name" value="{$brand_name}" id="brand_name">
+                </div>
+              </div>
+              <div class="am-form-group">
+                <label for="user-email" class="am-u-sm-3 am-form-label">所属分类</label>
+                <div class="am-u-sm-9">
+                  <select multiple data-am-selected name="cate_id[]">
+  {volist name="category" id="cate"}
+                    <option value="{$cate.id}" {if isset($cate['selected'])} {eq name="$cate['selected']" value="1"}selected="selected"{/eq} {/if}>
+                    {$cate.cate_name}
+                    </option>
+  {/volist}
+                  </select>
+                </div>
+              </div>
+              <div class="am-form-group am-form-file">
+                <label for="user-name" class="am-u-sm-3 am-form-label">品牌LOGO</label>
+                <div class="am-u-sm-9">
+                 <div class="tpl-form-file-img brand_logo_img"></div>
+                  <input type="text" class="tpl-form-input" name="brand_logo" placeholder="请上传品牌logo或输入品牌logo地址" value="{$brand_logo}" id="brand_logo">
+                  <button type="button" class="am-btn am-btn-danger am-btn-sm ">
+    <i class="am-icon-cloud-upload"></i> 上传文件</button>
+                  <input id="brand_logo_file" type="file">
+                </div>
+              </div>
+              <div class="am-form-group">
+                <label for="user-name" class="am-u-sm-3 am-form-label">通栏长图</label>
+                <div class="am-u-sm-9">
+                 <div class="tpl-form-file-img brand_enter_banner_img"></div>
+                  <input type="text" class="tpl-form-input" name="brand_enter_banner" value="{$brand_enter_banner}" id="brand_enter_banner">
+                  <button type="button" class="am-btn">上传</button>
+                </div>
+              </div>
+              <div class="am-form-group">
+                <label for="user-name" class="am-u-sm-3 am-form-label">首页推荐图</label>
+                <div class="am-u-sm-9">
+                 <div class="tpl-form-file-img brand_banner_img"></div>
+                  <input type="text" class="tpl-form-input" name="brand_banner" value="{$brand_banner}" id="brand_banner">
+                  <button type="button" class="am-btn">上传</button>
+                </div>
+              </div>
+              <div class="am-form-group">
+                <label for="user-name" class="am-u-sm-3 am-form-label">品牌缩略图</label>
+                <div class="am-u-sm-9">
+                  <div class="tpl-form-file-img brand_thumb_img"></div>
+                  <input type="text" class="tpl-form-input" name="brand_thumb" value="{$brand_thumb}" id="brand_thumb">
+                  <button type="button" class="am-btn">上传</button>
+                </div>
+              </div>
+              <div class="am-form-group">
+                <label for="user-name" class="am-u-sm-3 am-form-label">品牌介绍</label>
+                <div class="am-u-sm-9">
+                  <textarea rows="5" name="brand_description" id="brand_description">{$brand_description}</textarea>
+                </div>
+              </div>
+              <div class="am-form-group">
+                <label for="user-email" class="am-u-sm-3 am-form-label">卖家ID</label>
+                <div class="am-u-sm-9">
+                  <input type="text" class="am-form-field" placeholder="请输入卖家ID" name="seller_id" value="{$seller_id}" id="seller_id">
+                </div>
+              </div>
+              <div class="am-form-group">
+                <label for="user-email" class="am-u-sm-3 am-form-label">是否推荐</label>
+                <div class="am-u-sm-9">
+                  <select data-am-selected name="is_recommend">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                  </select>
+                </div>
+              </div>
+              <div class="am-form-group">
+                <div class="am-u-sm-9 am-u-sm-push-3">
+                  <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{include file="Public/footer"/} 
+<script>
+	$(function(){
+		$('#getItem').click(function(e){
+			var url = $('#brand_activity_url').val(),
+				_this= this;
+			if(url=='' || url.indexOf('ai.taobao.com')<0){
+				return false;
+			}
+			$(_this).button('loading');
+			$.post('{$ajaxUrl}',{'url':url},function(e){
+				if(e.seller_id){
+					$.each(e,function(element,value){
+						$('#'+element).val(value);
+						if(String(value).indexOf('alicdn.com')>-1){
+							$('.'+element+'_img').html('<img src="'+value+'" class="am-thumbnail">');
+						}
+					})
+					
+				}else{
+					
+				}
+				$(_this).button('reset');
+			},'json')
+			
+		})
+		
+		
+		
+		$('.am-form .am-btn-primary').click(function(e){
+			var _form=$('.am-form'),_this=this;
+			$(_this).button('loading');
+			$.post(_form.attr('action'),_form.serialize(),function(e){
+				if(e.code!=0){
+					$('input[name="__token__"]').val(e.token);
+					alert(e.msg);
+				}else{
+					window.location.href='{$brandUrl}'
+				}
+				$(_this).button('reset');
+			},'json')
+			
+		})
+		
+		
+
+		
+	})
+	</script>
+</body></html>

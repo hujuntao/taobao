@@ -1,0 +1,120 @@
+{include file="Public/header" title="$title"/}
+{include file="Public/menu"/}
+<div class="tpl-content-wrapper">
+  <div class="row-content am-cf">
+    <div class="row">
+      <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+        <div class="widget am-cf">
+          <div class="widget-head am-cf">
+            <div class="widget-title  am-cf">采集品牌商品</div>
+          </div>
+          <div class="widget-body  am-fr">
+            <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+              <div class="am-form-group">
+                <div class="am-btn-toolbar">
+                  <div class="am-btn-group am-btn-group-xs">
+                    <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+              <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+                <input type="text" class="am-form-field" name="cate_name" value="{$cate_name}">
+                <span class="am-input-group-btn">
+                <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
+                </span> </div>
+            </div>
+            <div class="am-u-sm-12">
+              <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black tpl-form-border-form">
+                <thead>
+                  <tr>
+                    <th><input type="checkbox" name="checkbox" id="select-all"></th>
+                    <th>品牌名称</th>
+                    <th>商品分类</th>
+                    <th>关键词</th>
+                    <th  width="100">页大小</th>
+                    <th  width="100">采集页数</th>
+                    <th>商品数量</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                
+                {volist name="list" id="brand"}
+                <tr data-id="{$brand.id}">
+                  <td><input type="checkbox" name="checkbox" value="{$brand.id}"></td>
+                  <td>{$brand.brand_name}</td>
+                  <td>{$brand.category}</td>
+                   <td><input name="q" value="{$brand.brand_name}" class="am-form-field am-radius" type="text"></td>
+                  <td><input name="page_size" value="20" class="am-form-field am-radius" type="number" min="1" max="100"></td>
+                  <td><input name="pages" value="5" class="am-form-field am-radius" type="number" min="1" max="100"></td>
+                  <td>{$brand.item_count}</td>
+                  <td class="am-text-middle"><div class="tpl-table-black-operation"> <a href="{$item_collect_url}/id/{$brand.id}" class="collect"> <i class="am-icon-forumbee"></i> 开始采集 </a> </div></td>
+                </tr>
+                {/volist}
+                  </tbody>
+                
+              </table>
+            </div>
+            <div class="am-u-lg-12 am-cf">
+              <div class="am-fr"> {$page|raw}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{include file="Public/footer"/}
+<script>
+$(function(){
+
+	
+	function getItem(url,data,page_no,pages,ele){
+		var _num = $(ele).parents('td').prev('td'),
+			_tr = $(ele).parents('tr');
+		data['page_no']=page_no;
+		$.post(url,data,function(e){
+			if(e.code==0){
+				page_no++;
+				_num.html(parseInt(_num.text())+parseInt(e.data.size));
+				console.log('当前采集第' + e.data.page + '页，成功采集' + e.data.size + '条数据。')
+				if(page_no<=pages){
+					 getItem(url,data,page_no,pages,ele);
+				}else{
+					alert('采集成功')
+					$(ele).html('<i class="am-icon-forumbee"></i> 开始采集').removeClass('am-disabled am-btn');
+					_tr.find('input').removeAttr('disabled');
+				}
+				
+			}else{
+				alert('采集失败')
+				$(ele).html('<i class="am-icon-forumbee"></i> 开始采集').removeClass('am-disabled am-btn');
+				_tr.find('input').removeAttr('disabled');
+				
+			}
+		},'json');
+		
+	}
+	$('.collect').click(function(){
+		var _this=this,
+			_tr = $(_this).parents('tr'),
+			_url = $(_this).attr('href'),
+			_id = _tr.attr('data-id');
+			_page_size = _tr.find('input[name="page_size"]').val(),
+			_pages = _tr.find('input[name="pages"]').val(),
+			_q = _tr.find('input[name="q"]').val(),
+			_page_no = 1;
+			
+		$(_this).html('<i class="am-icon-spinner am-icon-spin"></i> 正在采集').addClass('am-disabled am-btn');
+		_tr.find('input').attr('disabled',true);
+		getItem(_url,{'id':_id,'page_size':_page_size,'q':_q},_page_no,_pages,_this);
+		
+		
+		return false;
+	})
+})
+</script>
+</body></html>
