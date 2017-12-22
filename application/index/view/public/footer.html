@@ -4,7 +4,6 @@
 		<img src="http://www.snle.me/upload/20170811/2339d781004e9947e3b0be0845f1c67a.png" alt="二维码">
 		<p>关注微信及时抢</p>
 	</div>
-	
 	<div class="am-fl">
 		<h3 class="am-footer-slogan">"聪明的人，都会省钱"</h3>
 		<p class="am-footer-links">友情链接：<a href="#">会省钱</a> <a href="#">省了么</a></p>
@@ -29,7 +28,9 @@
 <script src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
 <script>
 $(function(){
-	$('.lazy').lazyload();
+	$('img.lazy').lazyload({
+  		effect : 'fadeIn'
+	});
 })
 </script>
 </body>
