@@ -1,5 +1,7 @@
 {include file="public/header" title="$title" keywords="$keywords" description="$description" /}
-<div class="am-hero">
+<div class="am-hero" style="background-color: rgb(189, 231, 255);">
+
+    
   <div class="am-container">
     <ul class="am-category">
       <li class="am-category-item"><a href="#"><i class="am-icon-shopping-bag"></i>女装</a></li>
@@ -17,11 +19,11 @@
       <li class="am-category-item"><a href="#"><i class="am-icon-shopping-bag"></i>美食</a></li>
       <li class="am-category-item"><a href="#"><i class="am-icon-shopping-bag"></i>其他</a></li>
     </ul>
-    <div class="am-banner">
-      <div class="am-slider am-slider-default" data-am-flexslider>
+     <div class="am-banner">
+      <div class="am-slider am-slider-default">
         <ul class="am-slides">
-          <li><img src="//gju2.alicdn.com/tps/i2/6000000007157/TB2lm6ziwLD8KJjSszeXXaGRpXa_!!6000000007157-0-jupush.jpg_760x760.jpg"  height="350"/></li>
-          <li><img src="//goods5.juancdn.com/bao/171221/8/7/5a3b856aa9fcf84e717df1d0_700x360.png" height="350"/></li>
+          <li style="background-color: rgb(189, 231, 255);"><a target="_blank" href="#"><img src="__STATIC__/images/banner.jpg" height="360"/></a></li>
+         <li style="background-color: rgb(233, 57, 111);"><a target="_blank" href="#"><img src="https://image3.suning.cn/uimg/cms/img/151425303031913566.jpg" height="360" /></a></li>
         </ul>
       </div>
     </div>
@@ -81,13 +83,7 @@
   <!--/brand-->
   <ul class="am-goods am-avg-sm-4">
     {volist name="list" id="data"}
-    <li>
-      <div class="am-goods-item"> <a class="am-goods-thumb" href="{$data.item_url}" ><img data-original="{$data.pict_url}_310x310.jpg" alt="{$data.title}" class="lazy"  src="__STATIC__/images/blank.jpg"></a>
-        <h3 class="am-goods-title"><a href="{$data.item_url}">{$data.title} </a></h3>
-        <p class="am-goods-price am-cf"><span class="price-current am-fl"><em class="am-yen">¥</em> {$data.price}</span> <span class="des-other am-fl"><span class="price-old"><del>¥{$data.zk_final_price}</del><b>丨</b><em class="am-zhe">{$data.discount}折</em></span></span> <span class="am-platform-icon  am-fr"><i class="am-icon-{$data.user_type? 'taobao' : 'tmall'}"></i> {$data.user_type? '淘宝' : '天猫'} </span></p>
-        <i class="am-goods-coupon"> <em>领券省<br>
-        {$data.coupon_amount}元</em> <b>去领券&#8250;</b> </i> </div>
-    </li>
+	{include file="public/item" /}
     {/volist}
   </ul>
 </div>

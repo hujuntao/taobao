@@ -28,6 +28,13 @@
 <script src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
 <script>
 $(function(){
+	$('.am-slider').flexslider({
+		before: function(slider){
+			
+			 $('.am-hero').css('background-color',$(slider.slides.prevObject).find('.am-active-slide').next('li').css('background-color'))
+			 
+		 }
+		});
 	$('img.lazy').lazyload({
   		effect : 'fadeIn'
 	});
