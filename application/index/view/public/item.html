@@ -1,0 +1,7 @@
+
+<li> <a class="am-goods-item" href="{$data.item_url}" > <img data-original="{$data.pict_url}_310x310.jpg" alt="{$data.title}" class="lazy am-goods-img"  src="__STATIC__/images/blank.jpg">
+  <h3 class="am-goods-title">{$data.title}</h3>
+  <p class="am-goods-price am-cf"><span class="am-price"><em class="am-symbol">¥</em>{$data.price}</span><del class="am-origin-price">¥{$data.zk_final_price}</del> <span class="pipe">|</span> <span class="am-discount">{$data.discount}折</span> <span class="am-platform-icon  am-fr"><i class="am-icon-{$data.user_type? 'taobao' : 'tmall'}"></i> {$data.user_type? '淘宝' : '天猫'} </span></p>
+  <i class="am-goods-coupon"> <em>领券省<br>
+  {$data.coupon_amount}元</em> <b>去领券 &gt;</b> </i> </a> 
+</li>
